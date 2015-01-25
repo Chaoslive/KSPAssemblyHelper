@@ -5,8 +5,9 @@ using System.Text;
 
 namespace KSPAssemblyHelper
 {
-    class Decoupler:Composite
+    class Decoupler:Composite,IStageing
     {
+        public int Stage { get; set; }
         public Decoupler()
         {
             this.Name = "Decoupler";

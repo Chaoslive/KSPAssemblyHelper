@@ -8,8 +8,8 @@ namespace KSPAssemblyHelper
 {
     enum PartSize
     {
+        Tiny,
         Small,
-        Regular,
         Large,
         Extra
     }
@@ -18,6 +18,18 @@ namespace KSPAssemblyHelper
         static System.Random rnd = new System.Random();
         static public int Next(int maxValue){
             return rnd.Next(maxValue);
+        }
+        static public int Next()
+        {
+            return rnd.Next();
+        }
+        static public int Next(int minValue,int maxValue)
+        {
+            return rnd.Next(minValue, maxValue);
+        }
+        static public double NextDouble()
+        {
+            return rnd.NextDouble();
         }
     }   
     static class Program

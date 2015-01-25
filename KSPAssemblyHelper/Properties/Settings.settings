@@ -1,7 +1,30 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="KSPAssemblyHelper.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="UnitMass_Small_Wet" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">562.5</Value>
+    </Setting>
+    <Setting Name="UnitMass_Large_Wet" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">4500</Value>
+    </Setting>
+    <Setting Name="UnitMass_Small_Dry" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">62.5</Value>
+    </Setting>
+    <Setting Name="UnitMass_Large_Dry" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="UnitMass_Tiny_Wet" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">78.675</Value>
+    </Setting>
+    <Setting Name="UnitMass_Tiny_Dry" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="UnitMass_Extra_Wet" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">20500</Value>
+    </Setting>
+    <Setting Name="UnitMass_Extra_Dry" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2500</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

@@ -55,11 +55,11 @@ namespace KSPAssemblyHelper
         /// <returns></returns>
         internal int AddCompositeByIndex(int index,Composite composite)
         {
-            Debug.Print("対象ID:" + index);
+            //Debug.Print("対象ID:" + index);
             int r = index - 1;
             if (index <= 0)
             {
-                Debug.Print("子に加えました");
+                //Debug.Print("子に加えました");
                 AddComposite(composite);
                 return 0;
             }
@@ -67,12 +67,12 @@ namespace KSPAssemblyHelper
             {                
                 foreach (Composite child in Children)
                 {
-                    Debug.Print("子に渡します r:" + r.ToString());
+                    //Debug.Print("子に渡します r:" + r.ToString());
                     r = child.AddCompositeByIndex(index:r, composite: composite);
-                    Debug.Print("子の返り値は r:" + r.ToString());
+                    //Debug.Print("子の返り値は r:" + r.ToString());
                     if (r == 0)
                     {
-                        Debug.Print("追加に成功しました");
+                        //Debug.Print("追加に成功しました");
                         return 0;
                     }
                     else
@@ -81,7 +81,7 @@ namespace KSPAssemblyHelper
                     }
                 }
                 r++;
-                Debug.Print("すべての子を探索しました 返り値 r:" + r.ToString());
+                //Debug.Print("すべての子を探索しました 返り値 r:" + r.ToString());
                 return r;
             }
             

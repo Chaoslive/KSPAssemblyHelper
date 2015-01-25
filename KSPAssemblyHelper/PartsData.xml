@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PartData>
+  <FuelTank
+    Name ="T100"
+    Size ="Small"
+    Cost="250"
+    WetMass="562.5"
+    DryMass="62.5"
+  />
+  <FuelTank
+    Name="X200-8"
+    Size="Large"
+    Cost="1600"
+    WetMass="4500"
+    DryMass="500"
+  />
+</PartData>

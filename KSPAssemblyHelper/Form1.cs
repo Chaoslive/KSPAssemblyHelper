@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace KSPAssemblyHelper
 {
@@ -14,6 +15,13 @@ namespace KSPAssemblyHelper
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Composite tree ;
+            tree = model.GetRandomAssembly(NumParts: 10);
+            treeView1.Nodes.Add(tree);
         }
     }
 }

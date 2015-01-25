@@ -6,6 +6,20 @@ using System.Windows.Forms;
 
 namespace KSPAssemblyHelper
 {
+    enum PartSize
+    {
+        Small,
+        Regular,
+        Large,
+        Extra
+    }
+    static class MyRand
+    {
+        static System.Random rnd = new System.Random();
+        static public int Next(int maxValue){
+            return rnd.Next(maxValue);
+        }
+    }   
     static class Program
     {
         /// <summary>
@@ -19,6 +33,7 @@ namespace KSPAssemblyHelper
             Application.Run(new Form1());
 
             //以下テスト
+            /*
             Composite c1 = new Composite();
             c1.Name = "Comp_1";
             Composite c2 = new Composite();
@@ -26,6 +41,7 @@ namespace KSPAssemblyHelper
             c1.AddComposite(c2);
             c2.AddComposite(new Composite());
             c1.PrintChildrenNames();
+             */
         }
     }
 }

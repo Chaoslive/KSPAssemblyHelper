@@ -11,7 +11,7 @@ namespace KSPAssemblyHelper
         /// <summary>
         /// 対象配置の数
         /// </summary>
-        protected int Count { get; set; }
+        public int Count { get; set; }
         protected Part()
         {
             this.Size = PartSize.Small;
@@ -20,5 +20,6 @@ namespace KSPAssemblyHelper
         {
             this.Size = Size;
         }
+        
     }
 }

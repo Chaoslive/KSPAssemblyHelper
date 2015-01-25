@@ -15,7 +15,31 @@ namespace KSPAssemblyHelper
     static class model
     {
        
-        //static public XDocument PartsDataXML = XDocument.Load("PartsData.xml");
+        static public XDocument PartsDataXML = XDocument.Load("PartsData.xml");
+        static public List<Engine> EngineList = GetEngineList();
+
+        public static List<Engine> GetEngineList()
+        {
+            var rec = PartsDataXML.Descendants("Engine");
+            var list = new List<Engine>();
+            foreach (var x in rec)
+            {
+                list.Add(new Engine(
+                    Name:x.Attribute("Name").Value,
+                    Size:(PartSize)Enum.Parse(typeof(PartSize),x.Attribute("Size").Value),
+                    Cost:int.Parse(x.Attribute("Cost").Value),
+                    Mass:double.Parse(x.Attribute("Mass").Value),
+                    Thrust:double.Parse(x.Attribute("Thrust").Value),
+                    Isp:double.Parse(x.Attribute("ISP").Value),
+                    Stage:0,
+                    Count:1
+                    
+                    ));
+                Debug.Print(x.Attribute("Name").Value);
+            }
+            return list;
+            //throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 指定された数のパーツを含むツリー構造をランダムに作成する
@@ -87,7 +111,10 @@ namespace KSPAssemblyHelper
                     r = new Booster();
                     break;
                 case 2:
-                    r = new Engine();
+                    Engine s = model.EngineList[MyRand.Next(model.EngineList.Count)].Clone();
+                    s.Stage = 0;
+                    s.Count = count;
+                    r = s;
                     break;
                 case 3:
                     r = new Decoupler();

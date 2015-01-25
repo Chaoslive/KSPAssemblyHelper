@@ -14,4 +14,20 @@
     WetMass="4500"
     DryMass="500"
   />
+  <Engine
+    Name="48-7S"
+    Size="Tiny"
+    Cost="300"
+    Mass="100"
+    Thrust="30000"
+    ISP="350"
+  />
+  <Engine
+    Name="LV-909"
+    Size="Small"
+    Cost="750"
+    Mass="500"
+    Thrust="50000"
+    ISP="390"
+  />
 </PartData>

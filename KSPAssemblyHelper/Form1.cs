@@ -22,6 +22,10 @@ namespace KSPAssemblyHelper
             Composite tree ;
             tree = model.GetRandomAssembly(NumParts: 10);
             treeView1.Nodes.Add(tree);
+            foreach(var x in model.EngineList)
+            {
+                Debug.Print(x.Name);
+            }
         }
     }
 }

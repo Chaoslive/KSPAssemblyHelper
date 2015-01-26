@@ -11,8 +11,7 @@ namespace KSPAssemblyHelper
         public int Stage { get; set; }
         public double Isp { get; set; }
         public double Thrust { get; set; }
-        public double Mass { get; set; }
-        public int Cost{get;set;}
+        
         public Engine()
         {
             this.Name = "Engine";
@@ -36,7 +35,9 @@ namespace KSPAssemblyHelper
         
         public Engine Clone()
         {
-            return (Engine)MemberwiseClone();
+            //Engine r = (Engine)MemberwiseClone();
+            //r.Children.Clear();
+            return new Engine(this.Name, this.Size, this.Cost, this.Mass, this.Thrust, this.Isp, this.Stage, this.Count);
         }
     }
 }

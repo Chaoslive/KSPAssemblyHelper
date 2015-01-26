@@ -17,6 +17,29 @@ namespace KSPAssemblyHelper
        
         static public XDocument PartsDataXML = XDocument.Load("PartsData.xml");
         static public List<Engine> EngineList = GetEngineList();
+        static public List<Booster> BoosterList = GetBoosterList();
+
+        private static List<Booster> GetBoosterList()
+        {
+            var rec = PartsDataXML.Descendants("Booster");
+            var list = new List<Booster>();
+            foreach (var x in rec)
+            {
+                list.Add(new Booster(
+                    Name: x.Attribute("Name").Value,
+                    Size: (PartSize)Enum.Parse(typeof(PartSize), x.Attribute("Size").Value),
+                    Cost: int.Parse(x.Attribute("Cost").Value),
+                    WetMass: double.Parse(x.Attribute("WetMass").Value),
+                    DryMass: double.Parse(x.Attribute("DryMass").Value),
+                    Thrust: double.Parse(x.Attribute("Thrust").Value),
+                    Isp: double.Parse(x.Attribute("ISP").Value),
+                    Stage: 0,
+                    Count: 1
+                    ));
+                Debug.Print("パーツリストに登録(Booster):" + x.Attribute("Name").Value);
+            }
+            return list;
+        }
 
         public static List<Engine> GetEngineList()
         {
@@ -35,7 +58,7 @@ namespace KSPAssemblyHelper
                     Count:1
                     
                     ));
-                Debug.Print(x.Attribute("Name").Value);
+                Debug.Print("パーツリストに登録(Engine):" + x.Attribute("Name").Value);
             }
             return list;
             //throw new NotImplementedException();
@@ -59,7 +82,9 @@ namespace KSPAssemblyHelper
                 var idx = MyRand.Next(count);
                 Debug.Print("GetRandomPart() ID追加:" + idx);
                 //Debug.Assert(idx != 2);
-                r = root.AddCompositeByIndex(index: idx, composite: GetRandomPart());
+                var p = GetRandomPart();
+                Debug.Assert(p.GetChildCount() == 0);
+                r = root.AddCompositeByIndex(index: idx, composite:p );
                 //r = root.AddCompositeByIndex(index:1, composite: GetRandomPart());
                 Debug.Assert(r <= 0);
                 count++;
@@ -108,11 +133,13 @@ namespace KSPAssemblyHelper
                     r = new FuelTank(Size:RandomPartSize(),WetMass:MyRand.NextDouble()*1000,Count:count);
                     break;
                 case 1:
-                    r = new Booster();
+                    Booster b = model.BoosterList[MyRand.Next(model.BoosterList.Count)].Clone();
+                    b.Stage = MyRand.Next(model.maxStage);
+                    r = b;
                     break;
                 case 2:
                     Engine s = model.EngineList[MyRand.Next(model.EngineList.Count)].Clone();
-                    s.Stage = 0;
+                    s.Stage = MyRand.Next(model.maxStage);
                     s.Count = count;
                     r = s;
                     break;
@@ -122,6 +149,7 @@ namespace KSPAssemblyHelper
                 default:
                     throw (new Exception("Unknown part type"));
             }
+            Debug.Assert(r.GetChildCount() == 0);
             return r;
         }
 
@@ -135,5 +163,7 @@ namespace KSPAssemblyHelper
                 .FirstOrDefault();
         }
 
+
+        public static int maxStage { get; set; }
     }
 }

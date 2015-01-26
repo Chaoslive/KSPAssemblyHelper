@@ -30,4 +30,13 @@
     Thrust="50000"
     ISP="390"
   />
+  <Booster
+    Name="TestBooster"
+    Size="Small"
+    Cost="9999"
+    WetMass="1111"
+    DryMass="2222"
+    Thrust="3333"
+    ISP ="444"
+  />  
 </PartData>

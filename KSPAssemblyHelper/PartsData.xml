@@ -38,5 +38,11 @@
     DryMass="2222"
     Thrust="3333"
     ISP ="444"
-  />  
+  />
+  <Decoupler
+    Name="TestDecoupler"
+    Size="Small"
+    Cost="1234"
+    Mass="888"
+  />
 </PartData>

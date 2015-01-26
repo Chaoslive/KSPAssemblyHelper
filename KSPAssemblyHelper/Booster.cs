@@ -13,12 +13,8 @@ namespace KSPAssemblyHelper
         public double Isp;
 
         public int Stage { get; set; }
-        public Booster()
-        {
-            this.Name = "Booster";
-        }
-
-        public Booster(string Name, PartSize Size, int Cost, double WetMass, double DryMass, double Thrust, double Isp, int Stage, int Count)
+       
+        public Booster(string Name, PartSize Size, int Cost, double WetMass, double DryMass, double Thrust, double Isp, int Stage)
         {
             // TODO: Complete member initialization
             this.Name = Name;
@@ -29,7 +25,6 @@ namespace KSPAssemblyHelper
             this.Thrust = Thrust;
             this.Isp = Isp;
             this.Stage = Stage;
-            this.Count = Count;
         }
 
 
@@ -37,7 +32,7 @@ namespace KSPAssemblyHelper
         {
             //var r = (Booster)MemberwiseClone();
             //r.Children.Clear();
-            return new Booster(this.Name,this.Size,this.Cost,this.WetMass,this.DryMass,this.Thrust,this.Isp,this.Stage,this.Count);
+            return new Booster(this.Name,this.Size,this.Cost,this.WetMass,this.DryMass,this.Thrust,this.Isp,this.Stage);
         }
     }
 }

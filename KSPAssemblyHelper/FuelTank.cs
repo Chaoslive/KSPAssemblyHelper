@@ -12,17 +12,13 @@ namespace KSPAssemblyHelper
 
         double WetMass;
         double DryMass;
-        public FuelTank()
-        {
-            this.Name = "FuelTank";
-        }
+       
 
         public FuelTank(PartSize Size, double WetMass,int Count)
         {
-            this.Count = Count;
             this.Size = Size;
             NormalizeMass(Size: Size, AbnormalWetMass: WetMass, WetMass: out this.WetMass, DryMass: out this.DryMass);
-            this.Name = this.Count.ToString() + "*FuelTank(" + this.Size.ToString() + "):" + this.WetMass.ToString();
+            this.Name = "FuelTank(" + this.Size.ToString() + "):" + this.WetMass.ToString();
         }
 
 

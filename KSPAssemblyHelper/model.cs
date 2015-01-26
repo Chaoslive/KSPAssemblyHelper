@@ -10,13 +10,60 @@ namespace KSPAssemblyHelper
     enum RandomPartOption
     {
         all,
-        root
+        root,
+        BoosterChild,
+        FuelTankChild,
+        DecouplerChild,
+        EngineChild
     }
     static class model
     {
-       
+        public static int maxStage { get; set; }
+        public static int maxCount { get; set; }
         static public XDocument PartsDataXML = XDocument.Load("PartsData.xml");
         static public List<Engine> EngineList = GetEngineList();
+        static public List<Booster> BoosterList = GetBoosterList();
+        static public List<Decoupler> DecouplerList = GetDecouplerList();
+
+        private static List<Decoupler> GetDecouplerList()
+        {
+            var rec = PartsDataXML.Descendants("Decoupler");
+            var list = new List<Decoupler>();
+            foreach (var x in rec)
+            {
+                list.Add(new Decoupler(
+                    Name: x.Attribute("Name").Value,
+                    Size: (PartSize)Enum.Parse(typeof(PartSize), x.Attribute("Size").Value),
+                    Cost: int.Parse(x.Attribute("Cost").Value),
+                    Mass: double.Parse(x.Attribute("Mass").Value),
+                    Stage: 0,
+                    Count:0
+                    ));
+                Debug.Print("パーツリストに登録(Decoupler):" + x.Attribute("Name").Value);
+            }
+            return list;
+        }
+
+        private static List<Booster> GetBoosterList()
+        {
+            var rec = PartsDataXML.Descendants("Booster");
+            var list = new List<Booster>();
+            foreach (var x in rec)
+            {
+                list.Add(new Booster(
+                    Name:x.Attribute("Name").Value,
+                    Size:(PartSize)Enum.Parse(typeof(PartSize),x.Attribute("Size").Value),
+                    Cost:int.Parse(x.Attribute("Cost").Value),
+                    WetMass:double.Parse(x.Attribute("WetMass").Value),
+                    DryMass: double.Parse(x.Attribute("DryMass").Value),
+                    Thrust:double.Parse(x.Attribute("Thrust").Value),
+                    Isp:double.Parse(x.Attribute("ISP").Value),
+                    Stage:0
+                    ));
+                Debug.Print("パーツリストに登録(Booster):" + x.Attribute("Name").Value);
+            }
+            return list;
+        }
 
         public static List<Engine> GetEngineList()
         {
@@ -31,11 +78,9 @@ namespace KSPAssemblyHelper
                     Mass:double.Parse(x.Attribute("Mass").Value),
                     Thrust:double.Parse(x.Attribute("Thrust").Value),
                     Isp:double.Parse(x.Attribute("ISP").Value),
-                    Stage:0,
-                    Count:1
-                    
+                    Stage:0
                     ));
-                Debug.Print(x.Attribute("Name").Value);
+                Debug.Print("パーツリストに登録(Engine):" + x.Attribute("Name").Value);
             }
             return list;
             //throw new NotImplementedException();
@@ -54,12 +99,13 @@ namespace KSPAssemblyHelper
             //Debug.Print("Children count = " + count.ToString());
             for (var i = 0; i < NumParts - 1; i++)
             {
-
                 Debug.Assert(count == root.GetChildCount() + 1);
                 var idx = MyRand.Next(count);
                 Debug.Print("GetRandomPart() ID追加:" + idx);
                 //Debug.Assert(idx != 2);
-                r = root.AddCompositeByIndex(index: idx, composite: GetRandomPart());
+                var p = GetRandomPart();
+                Debug.Assert(p.GetChildCount() == 0);
+                r = root.AddCompositeByIndex(index: idx, composite:p );
                 //r = root.AddCompositeByIndex(index:1, composite: GetRandomPart());
                 Debug.Assert(r <= 0);
                 count++;
@@ -108,20 +154,25 @@ namespace KSPAssemblyHelper
                     r = new FuelTank(Size:RandomPartSize(),WetMass:MyRand.NextDouble()*1000,Count:count);
                     break;
                 case 1:
-                    r = new Booster();
+                    Booster b = model.BoosterList[MyRand.Next(model.BoosterList.Count)].Clone();
+                    b.Stage = MyRand.Next(model.maxStage);
+                    r = b;
                     break;
                 case 2:
                     Engine s = model.EngineList[MyRand.Next(model.EngineList.Count)].Clone();
-                    s.Stage = 0;
-                    s.Count = count;
+                    s.Stage = MyRand.Next(model.maxStage);
                     r = s;
                     break;
                 case 3:
-                    r = new Decoupler();
+                    Decoupler d = model.DecouplerList[MyRand.Next(model.DecouplerList.Count)].Clone();
+                    d.Stage = MyRand.Next(model.maxStage);
+                    d.Count = MyRand.Next(model.maxCount);
+                    r = d;
                     break;
                 default:
                     throw (new Exception("Unknown part type"));
             }
+            Debug.Assert(r.GetChildCount() == 0);
             return r;
         }
 
@@ -135,5 +186,7 @@ namespace KSPAssemblyHelper
                 .FirstOrDefault();
         }
 
+
+        
     }
 }

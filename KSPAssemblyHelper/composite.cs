@@ -12,7 +12,7 @@ namespace KSPAssemblyHelper
         public string Name { get; set; }
         //public int id { get; set; }
         Composite Parent;
-        List<Composite> Children = new List<Composite>();
+        public List<Composite> Children = new List<Composite>();
 
         internal void PrintName()
         {
@@ -23,6 +23,7 @@ namespace KSPAssemblyHelper
         {
             this.Children.Add(Child);
             Child.Parent = this;
+            Debug.Print("子を追加しました:" + Child.Name);
         }
 
         internal void RemoveComposite()
@@ -56,6 +57,7 @@ namespace KSPAssemblyHelper
         internal int AddCompositeByIndex(int index,Composite composite)
         {
             //Debug.Print("対象ID:" + index);
+            Debug.Assert(composite.GetChildCount() == 0);
             int r = index - 1;
             if (index <= 0)
             {
@@ -65,7 +67,7 @@ namespace KSPAssemblyHelper
             }
             else
             {                
-                foreach (Composite child in Children)
+                foreach (Composite child in this.Children)
                 {
                     //Debug.Print("子に渡します r:" + r.ToString());
                     r = child.AddCompositeByIndex(index:r, composite: composite);

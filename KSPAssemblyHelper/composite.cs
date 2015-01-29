@@ -97,5 +97,33 @@ namespace KSPAssemblyHelper
             }      
             return new TreeNode(comp.Name,ChildList.ToArray());
         }
+
+        internal int GetNodeById(int Index,out Composite  ReturnComposite)
+        {
+            int r = Index - 1;
+            if (Index <= 0)
+            {
+                ReturnComposite = this;
+                return 0;
+            }
+            else
+            {
+                foreach (Composite child in this.Children)
+                {
+                    r = GetNodeById(Index: r, ReturnComposite: out ReturnComposite);
+                    if (r == 0)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        r--;
+                    }
+                   
+                }
+                r++;
+                return r;
+            }
+        }
     }
 }

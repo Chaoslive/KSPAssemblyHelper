@@ -102,6 +102,8 @@ namespace KSPAssemblyHelper
                 Debug.Assert(count == root.GetChildCount() + 1);
                 var idx = MyRand.Next(count);
                 Debug.Print("GetRandomPart() ID追加:" + idx);
+                Composite cmp = new Composite();
+                root.GetNodeById(Index:idx,out cmp);
                 //Debug.Assert(idx != 2);
                 var p = GetRandomPart();
                 Debug.Assert(p.GetChildCount() == 0);

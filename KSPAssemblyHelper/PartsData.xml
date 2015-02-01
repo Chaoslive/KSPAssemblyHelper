@@ -31,18 +31,18 @@
     ISP="390"
   />
   <Booster
-    Name="TestBooster"
+    Name="RT-10"
     Size="Small"
-    Cost="9999"
-    WetMass="1111"
-    DryMass="2222"
-    Thrust="3333"
-    ISP ="444"
+    Cost="325"
+    WetMass="3747.5"
+    DryMass="500"
+    Thrust="250000"
+    ISP ="240"
   />
   <Decoupler
-    Name="TestDecoupler"
-    Size="Small"
-    Cost="1234"
-    Mass="888"
+    Name="TT-38K"
+    Size="Radial"
+    Cost="600"
+    Mass="25"
   />
 </PartData>

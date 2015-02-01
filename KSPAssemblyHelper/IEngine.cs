@@ -5,7 +5,10 @@ using System.Text;
 
 namespace KSPAssemblyHelper
 {
-    class AssemblyTree:Composite
+    interface IEngine
     {
+         double Isp { get; set; }
+         double Thrust { get; set; }
+         bool Enable { get; set; }
     }
 }

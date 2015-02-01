@@ -30,6 +30,7 @@
         {
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnSampleAsm = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // treeView1
@@ -49,11 +50,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnSampleAsm
+            // 
+            this.btnSampleAsm.Location = new System.Drawing.Point(216, 257);
+            this.btnSampleAsm.Name = "btnSampleAsm";
+            this.btnSampleAsm.Size = new System.Drawing.Size(75, 23);
+            this.btnSampleAsm.TabIndex = 2;
+            this.btnSampleAsm.Text = "SampleAsm";
+            this.btnSampleAsm.UseVisualStyleBackColor = true;
+            this.btnSampleAsm.Click += new System.EventHandler(this.btnSampleAsm_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 325);
+            this.Controls.Add(this.btnSampleAsm);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.treeView1);
             this.Name = "Form1";
@@ -66,6 +78,7 @@
 
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSampleAsm;
     }
 }
 

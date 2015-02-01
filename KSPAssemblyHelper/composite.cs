@@ -11,8 +11,13 @@ namespace KSPAssemblyHelper
     {
         public string Name { get; set; }
         //public int id { get; set; }
-        Composite Parent;
+        public Composite Parent;
         public List<Composite> Children = new List<Composite>();
+
+        public Composite()
+        {
+            this.Name = "Blank";
+        }
 
         internal void PrintName()
         {
@@ -23,7 +28,7 @@ namespace KSPAssemblyHelper
         {
             this.Children.Add(Child);
             Child.Parent = this;
-            Debug.Print("子を追加しました:" + Child.Name);
+            //Debug.Print("子を追加しました:" + Child.Name);
         }
 
         internal void RemoveComposite()
@@ -98,7 +103,7 @@ namespace KSPAssemblyHelper
             return new TreeNode(comp.Name,ChildList.ToArray());
         }
 
-        internal int GetNodeById(int Index,out Composite  ReturnComposite)
+        internal int GetNodeByIndex(int Index,out Composite  ReturnComposite)
         {
             int r = Index - 1;
             if (Index <= 0)
@@ -110,7 +115,7 @@ namespace KSPAssemblyHelper
             {
                 foreach (Composite child in this.Children)
                 {
-                    r = GetNodeById(Index: r, ReturnComposite: out ReturnComposite);
+                    r = child.GetNodeByIndex(Index: r, ReturnComposite: out ReturnComposite);
                     if (r == 0)
                     {
                         return 0;
@@ -122,8 +127,14 @@ namespace KSPAssemblyHelper
                    
                 }
                 r++;
+                ReturnComposite = null;
                 return r;
             }
+        }
+
+        public bool IsRoot()
+        {
+            return (this.Parent == null);
         }
     }
 }

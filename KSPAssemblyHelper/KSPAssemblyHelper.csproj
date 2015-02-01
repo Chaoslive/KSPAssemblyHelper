@@ -62,7 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyTree.cs" />
+    <Compile Include="Assembly.cs" />
     <Compile Include="Booster.cs" />
     <Compile Include="Composite.cs" />
     <Compile Include="Decoupler.cs" />
@@ -74,6 +74,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="FuelTank.cs" />
+    <Compile Include="IEngine.cs" />
     <Compile Include="IStageing.cs" />
     <Compile Include="model.cs" />
     <Compile Include="Part.cs" />

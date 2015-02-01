@@ -11,7 +11,8 @@ namespace KSPAssemblyHelper
         Tiny,
         Small,
         Large,
-        Extra
+        Extra,
+        Radial
     }
     static class MyRand
     {

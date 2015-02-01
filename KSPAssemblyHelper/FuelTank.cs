@@ -12,15 +12,23 @@ namespace KSPAssemblyHelper
 
         double WetMass;
         double DryMass;
-       
-
+        public double FuelMassNow{get;set;}
+        
+        
         public FuelTank(PartSize Size, double WetMass,int Count)
         {
             this.Size = Size;
             NormalizeMass(Size: Size, AbnormalWetMass: WetMass, WetMass: out this.WetMass, DryMass: out this.DryMass);
             this.Name = "FuelTank(" + this.Size.ToString() + "):" + this.WetMass.ToString();
+            this.FuelMassNow = WetMass - DryMass;
+            this.Count = 1;
         }
 
+        public override double GetMassNow()
+        {
+            //Debug.Print(this.Name + "Mass:" + (DryMass + (WetMass - DryMass) * FuelRate).ToString());
+            return (DryMass + FuelMassNow);
+        }
 
         /// <summary>
         /// 渡された湿重量を指定サイズの最小タンクの整数倍になおす
@@ -54,7 +62,7 @@ namespace KSPAssemblyHelper
                 default:
                     throw new Exception("INvalid part size");
             }
-            var tankNum = (int)((AbnormalWetMass + unitWet)/unitWet);
+            var tankNum = (int)((AbnormalWetMass )/unitWet);
             WetMass = unitWet * tankNum;
             DryMass = unitDry * tankNum;
             
@@ -71,7 +79,7 @@ namespace KSPAssemblyHelper
             //Debug.Print(rec.ToString());
         }
 
-
+        
         void PrintSize()
         {
             Debug.Print(Size.ToString());

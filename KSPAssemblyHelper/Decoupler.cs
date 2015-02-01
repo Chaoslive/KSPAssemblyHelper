@@ -8,8 +8,11 @@ namespace KSPAssemblyHelper
     
     class Decoupler:Part,IStageing
     {
-        public int Count { get; set; }
-        public int Stage { get; set; }
+        public override double GetMassNow()
+        {
+            return this.Mass;
+        }
+
         public Decoupler(string Name, PartSize Size, int Cost, double Mass, int Stage,int Count)
         {
             this.Name = Name;

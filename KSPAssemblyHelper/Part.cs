@@ -44,7 +44,7 @@ namespace KSPAssemblyHelper
 
         public double GetMassNowAll(int Stage)
         {
-            if ((this.GetType().Name == "Decoupler") && (this.Stage < Stage)) { return 0; }
+            if ((this.GetType().Name == "Decoupler") && (this.Stage <= Stage)) { return 0; }
             double MassChildren = 0.0;
             foreach (Part child in Children)
             {
@@ -57,6 +57,10 @@ namespace KSPAssemblyHelper
         internal double GetMinimamBurnTime(int Stage)
         {
             double min = Double.MaxValue;
+            if (this.TypeName == "Decoupler" && this.Stage <= Stage)
+            {
+                return min;
+            }
             foreach (Part child in Children)
             {
                 var m = child.GetMinimamBurnTime(Stage);
@@ -96,7 +100,7 @@ namespace KSPAssemblyHelper
             {
                 child.BurnFuel(Stage,Time);
             }
-            if (this.GetType().Name == "Booster" && this.Stage <= Stage)
+            if (this.GetType().Name == "Booster" && this.Stage <= Stage && ((IEngine)this).Enable)
             {
                 Booster b = (Booster)this;
                 b.FuelMassNow -= b.Thrust / (b.Isp * 9.81) * Time;
@@ -105,7 +109,7 @@ namespace KSPAssemblyHelper
                     b.Enable = false;
                 }
             }
-            else if (this.GetType().Name == "Engine" && this.Stage <= Stage)
+            else if (this.GetType().Name == "Engine" && this.Stage <= Stage && ((IEngine)this).Enable)
             {
                 Engine e = (Engine)this;
                 FuelTank t = (FuelTank)this.Parent;
@@ -160,24 +164,56 @@ namespace KSPAssemblyHelper
         /// <returns></returns>
             internal bool IsStageContinue(int Stage)
             {
-                foreach (Part child in Children)
-	            {
-                    if (child.IsStageContinue(Stage)) { return true; }
-	            }
-                if (this.GetType().Name == "Decoupler")
+                List<Decoupler> LDec  = this.GetDecouplerByStage(Stage+1);
+                if (LDec.Count == 0)
                 {
-                    foreach (Part child in Children)
+                    if (this.HasEnableEngineStage(Stage)) { return true; } else { return false; }
+                }
+                foreach (Decoupler dec in LDec)
+                {
+                    if (dec.HasEnableEngineStage(Stage))
                     {
-                        if (child.GetType().Name == "Engine" || child.GetType().Name == "Booster")
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            private List<Decoupler> GetDecouplerByStage(int Stage)
+            {
+                var ret = new List<Decoupler>();
+                foreach (Part child in Children)
+                {
+                    ret.AddRange(child.GetDecouplerByStage(Stage));
+                    if (child.GetType().Name == "Decoupler" && child.Stage == Stage)
+                    {
+                        ret.Add((Decoupler)child);
+                    }
+                }
+                return ret;
+            }
+
+            internal bool HasEnableEngineStage(int Stage)
+            {
+                foreach (Part child in Children)
+                {
+                    if (child.HasEnableEngineStage(Stage)) { return true; }
+                    if (child.GetType().Name == "Engine" || child.GetType().Name == "Booster")
+                    {
+                        if (child.Stage <= Stage && ((IEngine)child).Enable)
                         {
-                            if (child.Stage <= Stage && ((IEngine)child).Enable)
-                            {
-                                return true;
-                            }
+                            return true;
                         }
                     }
                 }
                 return false;
+            }
+
+
+            public string TypeName {
+                get {
+                    return this.GetType().Name;
+                }
             }
     }
 

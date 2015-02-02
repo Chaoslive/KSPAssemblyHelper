@@ -29,5 +29,7 @@ namespace KSPAssemblyHelper
             //r.Children.Clear();
             return new Decoupler(this.Name, this.Size, this.Cost, this.Mass,this.Stage,this.Count);
         }
+
+       
     }
 }
